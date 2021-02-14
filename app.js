@@ -1,24 +1,16 @@
-// тоглогчийн ээлжийг хадгалах хувьсагч 1-р тоглогч 0, 2-р тоглогч нь 1
-var activePlayer = 0;
+// тоглоомын бүх газар ашиглах глобал хувьсагчийг зарлах
+// идэвхитэй тоглогчийг энд хадгална
+var activePlayer;
+//2 тоглогчийн цуглуулсан оноо
+var scores;
+// идэвхитэй тоглогчийн ээлжийн оноо
+var roundScore;
 
-//тоглогчдийн цуглуулсан оноог хадгалах хувьсагч
-var scores = [0, 0];
-
-//тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore = 0;
-
-// шооны аль талаараа буусныг хадгалах хувьсагч, 1-6 гэсэн утгыг энэ хувьсагчид санамсаргүйгээр үүсгэж өгнө
-
-//програм эхлэхэд бэлтгэх
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
+//шооны зургийг үзүүлэх элементийг ДОМ-с хайж гаргаж авч байгаа
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
 
+//тоглоомыг эхлүүлэнэ
+initGame();
 // Шоог шидэх эвент листнер
 document.querySelector(".btn-roll").addEventListener("click", function () {
   // 1-6 доторх тоог санамсаргүй гаргаж авна
@@ -83,4 +75,36 @@ function switchToNextPlayer() {
 
 //шинэ тоглоом эхлүүлэх товч листнер
 
-document.querySelector(".btn-new").addEventListener("click", function () {});
+document.querySelector(".btn-new").addEventListener("click", initGame);
+
+function initGame() {
+  // тоглогчийн ээлжийг хадгалах хувьсагч 1-р тоглогч 0, 2-р тоглогч нь 1
+  activePlayer = 0;
+
+  //тоглогчдийн цуглуулсан оноог хадгалах хувьсагч
+  scores = [0, 0];
+
+  //тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
+  roundScore = 0;
+
+  //програм эхлэхэд бэлтгэх
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  //тоглогчидийн нэрийг буцааж гаргах
+  document.getElementById("name-0").textContent = "PLAYER 1";
+  document.getElementById("name-1").textContent = "PLAYER 2";
+
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+
+  diceDom.style.display = "none";
+}
