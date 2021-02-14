@@ -36,20 +36,51 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     roundScore = roundScore + diceNumber;
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
-    // 1 буусан тул тоглогчийн ээлжийг энэ хэсэгт сольж өгнө
-
-    //энэ тоглогчийн ээлжиндээ цуглуулсан оноог 0 болгоно
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    // хэрэв идэвхитэй тоглогч нь 0 байвал идэвхитэй тоглогчийг 1 болго. үгүй бол 0 болго
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-    //улаан цэг шилжүүлэх код
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-
-    //шоог түр алга болгох
-    diceDom.style.display = "none";
+    switchToNextPlayer();
   }
 });
+
+// HOLD товчны эвент листнер
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  //уг товчний цуглуулсан оноог глобал оноо дээр нэмнэ.
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+  //дэлгэц дээр оноог өөрчлөнө
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+
+  //тоглогч хожсон эсэхийг шалгах 100 оноотой болсон уу
+  if (scores[activePlayer] >= 10) {
+    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
+  } else {
+    //тоглогчийн ээлжийг солино.
+    switchToNextPlayer();
+  }
+});
+
+//тоглох ээлжийг шилжүүлдэг
+function switchToNextPlayer() {
+  // 1 буусан тул тоглогчийн ээлжийг энэ хэсэгт сольж өгнө
+  //энэ тоглогчийн ээлжиндээ цуглуулсан оноог 0 болгоно
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = "0";
+
+  // хэрэв идэвхитэй тоглогч нь 0 байвал идэвхитэй тоглогчийг 1 болго. үгүй бол 0 болго
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+  //улаан цэг шилжүүлэх код
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+
+  //шоог түр алга болгох
+  diceDom.style.display = "none";
+}
+
+//шинэ тоглоом эхлүүлэх товч листнер
+
+document.querySelector(".btn-new").addEventListener("click", function () {});
