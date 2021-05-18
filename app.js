@@ -1,7 +1,7 @@
 // тоглоомын бүх газар ашиглах глобал хувьсагчийг зарлах
 //тоглоом дууссан эсэхийг хадгалах төлөвийн хувьсагч
 var isNewGame;
-// идэвхитэй тоглогчийг энд хадгална
+// идэвхитэй тоглогчийг энд хадгална нмэлэт тест
 var activePlayer;
 //2 тоглогчийн цуглуулсан оноо
 var scores;
@@ -29,9 +29,8 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     if (diceNumber !== 1) {
       //1-с ялгаатай тоо буулаа буусан тоог тоглогчид нэмж өгнө
       roundScore = roundScore + diceNumber;
-      document.getElementById(
-        "current-" + activePlayer
-      ).textContent = roundScore;
+      document.getElementById("current-" + activePlayer).textContent =
+        roundScore;
     } else {
       switchToNextPlayer();
     }
